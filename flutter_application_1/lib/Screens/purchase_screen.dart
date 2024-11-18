@@ -27,200 +27,150 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
             fit: BoxFit.cover,
           ),
         ),
-        padding: const EdgeInsets.all(10.0), // Reduced padding
+        padding:
+            const EdgeInsets.all(15.0), // Reduced padding for smaller screen
         child: Center(
-          child: Container(
-            padding: const EdgeInsets.all(20.0), // Reduced padding
-            decoration: BoxDecoration(
-              color: Colors.white
-                  .withOpacity(0.9), // Slightly more opaque for better contrast
-              borderRadius: BorderRadius.circular(15.0),
-              border: Border.all(
-                  color: Colors.blueAccent, width: 3), // Thicker border
-            ),
-            child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Align items to start
-              children: [
-                // Total Amount
-                Text(
-                  'Total Amount: ₱${widget.totalCost}',
-                  style: const TextStyle(
-                    fontSize: 28, // Increased font size
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green, // Changed color to green
+          child: SingleChildScrollView(
+            // Allow scrolling for smaller screens
+            child: Container(
+              padding: const EdgeInsets.all(20.0), // Reduced padding
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(
+                    0.9), // Slightly more opaque for better contrast
+                borderRadius: BorderRadius.circular(15.0),
+                border: Border.all(color: Colors.blueAccent, width: 3),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Total Amount
+                  Text(
+                    'Total Amount: ₱${widget.totalCost}',
+                    style: const TextStyle(
+                      fontSize: 24, // Adjusted font size for smaller screens
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
+                  const SizedBox(height: 15),
 
-                // ONLINE PAYMENT
-                const Text(
-                  'ONLINE PAYMENT:',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ), // Adjusted font size
-                ),
-                const SizedBox(height: 10),
-
-                // GCash payment section
-                Center(
-                  // Centering the GCash section
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: gcashController,
-                        decoration: const InputDecoration(
-                          labelText: 'Enter Mobile Number for GCash',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.phone,
-                      ),
-                      const SizedBox(height: 5),
-                      ElevatedButton(
-                        onPressed: () {
-                          String mobileNumber = gcashController.text;
-                          if (mobileNumber.isNotEmpty) {
-                            _showPaymentNotification(
-                                context, 'GCash', mobileNumber);
-                          } else {
-                            _showErrorNotification(
-                                context, 'Please enter a mobile number.');
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0,
-                              horizontal: 40.0), // Increased button padding
-                        ),
-                        child: const Text(
-                          'Pay with GCash',
-                          style: TextStyle(
-                              color: Colors.white), // Button text color
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-
-                // PayMaya payment section
-                Center(
-                  // Centering the PayMaya section
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: payMayaController,
-                        decoration: const InputDecoration(
-                          labelText: 'Enter Mobile Number for PayMaya',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.phone,
-                      ),
-                      const SizedBox(height: 5),
-                      ElevatedButton(
-                        onPressed: () {
-                          String mobileNumber = payMayaController.text;
-                          if (mobileNumber.isNotEmpty) {
-                            _showPaymentNotification(
-                                context, 'PayMaya', mobileNumber);
-                          } else {
-                            _showErrorNotification(
-                                context, 'Please enter a mobile number.');
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0,
-                              horizontal: 40.0), // Increased button padding
-                        ),
-                        child: const Text(
-                          'Pay with PayMaya',
-                          style: TextStyle(
-                              color: Colors.white), // Button text color
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-
-                // Debit Card payment section
-                Center(
-                  // Centering the Debit Card section
-                  child: Column(
-                    children: [
-                      TextField(
-                        controller: debitCardController,
-                        decoration: const InputDecoration(
-                          labelText: 'Enter Debit Card Number',
-                          border: OutlineInputBorder(),
-                        ),
-                        keyboardType: TextInputType.number,
-                      ),
-                      const SizedBox(height: 5),
-                      ElevatedButton(
-                        onPressed: () {
-                          String cardNumber = debitCardController.text;
-                          if (cardNumber.isNotEmpty) {
-                            _showPaymentNotification(
-                                context, 'Debit Card', cardNumber);
-                          } else {
-                            _showErrorNotification(
-                                context, 'Please enter a debit card number.');
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orange,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 20.0,
-                              horizontal: 40.0), // Increased button padding
-                        ),
-                        child: const Text(
-                          'Pay with Debit Card',
-                          style: TextStyle(
-                              color: Colors.white), // Button text color
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // COUNTER PAYMENT
-                const Text(
-                  'COUNTER PAYMENT:',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ), // Adjusted font size
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    _showPaymentNotification(context, 'Counter Payment', '');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black87, // Dark color
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 30.0, // Increased button height
-                        horizontal: 60.0), // Increased button width
-                  ),
-                  child: const Text(
-                    'Print and Save Receipt',
+                  // ONLINE PAYMENT
+                  const Text(
+                    'ONLINE PAYMENT:',
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20), // Increased button text size
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 10),
+
+                  // GCash payment section
+                  _buildPaymentSection(
+                    controller: gcashController,
+                    label: 'Enter Mobile Number for GCash',
+                    buttonText: 'Pay with GCash (Print)',
+                    buttonColor: Colors.green,
+                    onPressed: () => _processPayment('GCash', gcashController),
+                  ),
+                  const SizedBox(height: 10),
+
+                  // PayMaya payment section
+                  _buildPaymentSection(
+                    controller: payMayaController,
+                    label: 'Enter Mobile Number for PayMaya',
+                    buttonText: 'Pay with PayMaya (Print)',
+                    buttonColor: Colors.blue,
+                    onPressed: () =>
+                        _processPayment('PayMaya', payMayaController),
+                  ),
+                  const SizedBox(height: 10),
+
+                  // Debit Card payment section
+                  _buildPaymentSection(
+                    controller: debitCardController,
+                    label: 'Enter Debit Card Number',
+                    buttonText: 'Pay with Debit Card (Print)',
+                    buttonColor: Colors.orange,
+                    onPressed: () =>
+                        _processPayment('Debit Card', debitCardController),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // COUNTER PAYMENT
+                  const Text(
+                    'COUNTER PAYMENT:',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      _showPaymentNotification(context, 'Counter Payment', '');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black87,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12.0,
+                          horizontal: 25.0), // Reduced button size
+                    ),
+                    child: const Text(
+                      'Print and Save Receipt',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildPaymentSection({
+    required TextEditingController controller,
+    required String label,
+    required String buttonText,
+    required Color buttonColor,
+    required Function onPressed,
+  }) {
+    return Column(
+      children: [
+        TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            labelText: label,
+            border: OutlineInputBorder(),
+          ),
+          keyboardType: TextInputType.phone,
+        ),
+        const SizedBox(height: 5),
+        ElevatedButton(
+          onPressed: () => onPressed(),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColor,
+            padding: const EdgeInsets.symmetric(
+                vertical: 12.0,
+                horizontal: 25.0), // Smaller padding for buttons
+          ),
+          child: Text(
+            buttonText,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _processPayment(String method, TextEditingController controller) {
+    String input = controller.text;
+    if (input.isNotEmpty) {
+      _showPaymentNotification(context, method, input);
+    } else {
+      _showErrorNotification(context, 'Please enter a valid number.');
+    }
   }
 
   void _showPaymentNotification(
@@ -230,9 +180,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
         : 'You have paid using $method. Please wait for the receipt.';
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message,
-            style: const TextStyle(
-                color: Colors.green)), // Change text color to green
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.green),
+        ),
       ),
     );
   }
@@ -240,9 +191,10 @@ class _PurchaseScreenState extends State<PurchaseScreen> {
   void _showErrorNotification(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message,
-            style: const TextStyle(
-                color: Colors.red)), // Error notification text color
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.red),
+        ),
       ),
     );
   }

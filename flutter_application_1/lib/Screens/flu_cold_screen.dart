@@ -26,7 +26,10 @@ class _FluColdScreenState extends State<FluColdScreen> {
       }
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$name added to cart!')),
+      SnackBar(
+        content: Text('$name added to cart!'),
+        duration: const Duration(seconds: 1), // 2 seconds duration
+      ),
     );
   }
 

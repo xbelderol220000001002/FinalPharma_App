@@ -8,6 +8,9 @@ class OTCScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Fetch the screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('OTC Screen'),
@@ -24,7 +27,7 @@ class OTCScreen extends StatelessWidget {
           // Centered Column for Buttons
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -41,7 +44,8 @@ class OTCScreen extends StatelessWidget {
                     child: const Text(
                       'SELECT WHAT ILLNESS YOU HAVE',
                       style: TextStyle(
-                        fontSize: 32, // Increased size for better visibility
+                        fontSize:
+                            16, // Adjusted font size for better visibility
                         fontWeight: FontWeight.bold,
                         color: Colors.black, // Bold black text
                       ),
@@ -49,8 +53,8 @@ class OTCScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20), // Space between title and buttons
-                  // Horizontal Row for Buttons
-                  Row(
+                  // Vertical Column for Buttons
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Flu or Cold Button with Border and Padding
@@ -66,7 +70,7 @@ class OTCScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      const SizedBox(width: 20), // Space between buttons
+                      const SizedBox(height: 15), // Space between buttons
                       // Cough Button with Border and Padding
                       buildBlueButton(
                         context,
@@ -81,7 +85,7 @@ class OTCScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      const SizedBox(width: 20), // Space between buttons
+                      const SizedBox(height: 15), // Space between buttons
                       // Anti Allergy Button with Border and Padding
                       buildBlueButton(
                         context,
@@ -138,6 +142,8 @@ class OTCScreen extends StatelessWidget {
   // Helper method to create a button with customizable colors
   Widget buildButton(BuildContext context, String text, VoidCallback onPressed,
       {required Color backgroundColor, required Color borderColor}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -149,9 +155,9 @@ class OTCScreen extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: backgroundColor, // Use the passed background color
-          minimumSize: const Size(160, 70), // Increased Button size
+          minimumSize: Size(screenWidth * 0.3, 50), // Adjusted button size
           textStyle: const TextStyle(
-            fontSize: 20, // Increased font size
+            fontSize: 16, // Adjusted font size for smaller buttons
             fontWeight: FontWeight.bold, // Bold text
           ),
           shape: RoundedRectangleBorder(

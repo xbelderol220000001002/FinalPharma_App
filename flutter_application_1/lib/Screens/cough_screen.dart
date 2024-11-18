@@ -26,7 +26,10 @@ class _CoughScreenState extends State<CoughScreen> {
       }
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$name added to cart!')),
+      SnackBar(
+        content: Text('$name added to cart!'),
+        duration: const Duration(seconds: 1), // 1 second duration
+      ),
     );
   }
 

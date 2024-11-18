@@ -34,70 +34,63 @@ class _RXScreenState extends State<RXScreen> {
 
                 // Container for the text with padding and border
                 Container(
-                  padding: const EdgeInsets.all(
-                      16.0), // Padding inside the container
+                  padding: const EdgeInsets.all(12.0), // Adjusted padding
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(
-                        0.8), // Slight background color for readability
-                    border: Border.all(
-                        color: Colors.blueAccent,
-                        width: 2), // Border color and width
-                    borderRadius: BorderRadius.circular(12), // Rounded corners
+                    color: Colors.white.withOpacity(0.8),
+                    border: Border.all(color: Colors.blueAccent, width: 1.5),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Text(
                     'BY TAPPING THE QUEUE BUTTON, THE SYSTEM WILL NOTIFY IF YOU ARE THE NEXT TO CATER.',
                     style: TextStyle(
-                      fontSize: 18, // Font size
-                      fontWeight: FontWeight.bold, // Bold text
-                      color: Colors.black, // Text color
+                      fontSize: 14, // Slightly smaller font size
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
-                    textAlign: TextAlign.center, // Center align the text
+                    textAlign: TextAlign.center,
                   ),
                 ),
 
-                const SizedBox(height: 40), // Add some spacing
+                const SizedBox(height: 20),
 
-                // Button Row
+                // Button Row with swapped positions
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Queue for RX Button
+                    // Back Button (now first)
+                    buildCustomButton(
+                      context,
+                      'BACK',
+                      Colors.red,
+                      Colors.redAccent,
+                      () {
+                        Navigator.pop(context); // Back to previous screen
+                      },
+                    ),
+                    const SizedBox(width: 10), // Space between buttons
+                    // Queue for RX Button (now second)
                     buildCustomButton(
                       context,
                       'QUEUE',
-                      Colors.blue, // Blue background color
-                      Colors.blueAccent, // Blue border color
+                      Colors.blue,
+                      Colors.blueAccent,
                       () {
                         setState(() {
                           queueNumber++; // Increment the queue number
                         });
 
-                        // Show SnackBar with queue number in blue color
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                               'You are now queued as number $queueNumber in the system.',
                               style: const TextStyle(
-                                color: Color.fromARGB(
-                                    255, 88, 231, 107), // Blue text color
-                                fontWeight: FontWeight.bold, // Bold text
+                                color: Color.fromARGB(255, 88, 231, 107),
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            duration: const Duration(
-                                seconds: 2), // Duration of the SnackBar
+                            duration: const Duration(seconds: 2),
                           ),
                         );
-                      },
-                    ),
-                    const SizedBox(width: 20), // Space between buttons
-                    // Back Button
-                    buildCustomButton(
-                      context,
-                      'BACK',
-                      Colors.red, // Red background color
-                      Colors.redAccent, // Red border color
-                      () {
-                        Navigator.pop(context); // Back to previous screen
                       },
                     ),
                   ],
@@ -114,26 +107,26 @@ class _RXScreenState extends State<RXScreen> {
   Widget buildCustomButton(BuildContext context, String text,
       Color backgroundColor, Color borderColor, VoidCallback onPressed) {
     return Container(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(
+          horizontal: 14.0, vertical: 6.0), // Reduced padding
       decoration: BoxDecoration(
-        border:
-            Border.all(color: borderColor, width: 2), // Border color and width
-        borderRadius: BorderRadius.circular(30), // Rounded corners
+        border: Border.all(color: borderColor, width: 1.5), // Thin border
+        borderRadius: BorderRadius.circular(30),
       ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white, // Text color
           backgroundColor: backgroundColor, // Button background color
-          minimumSize: const Size(150, 60), // Button size
+          minimumSize: const Size(130, 50), // Smaller button size
           textStyle: const TextStyle(
-            fontSize: 20, // Font size
-            fontWeight: FontWeight.bold, // Bold text
+            fontSize: 16, // Adjusted font size
+            fontWeight: FontWeight.bold,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30), // Rounded button shape
+            borderRadius: BorderRadius.circular(30),
           ),
-          elevation: 8, // Shadow effect
+          elevation: 4, // Slightly lower shadow
         ),
         child: Text(text),
       ),

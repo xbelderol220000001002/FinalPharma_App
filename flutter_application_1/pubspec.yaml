@@ -1,5 +1,7 @@
 name: flutter_application_1
 description: "A new Flutter project."
+
+# 'none' means the package won't be published to pub.dev.
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -10,17 +12,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  # For iOS-specific icons.
   cupertino_icons: ^1.0.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Linting tool for code analysis.
   flutter_lints: ^3.0.0
 
 flutter:
+  # Enables material design support.
   uses-material-design: true
 
+  # List all assets properly.
   assets:
     - assets/ASCOF FORTE.png
     - assets/bioflu.jpg
@@ -36,3 +41,4 @@ flutter:
     - assets/Counter.jpeg
     - assets/pharmacytablep2.jpeg
     - assets/counterr.png
+    - assets/posters.png

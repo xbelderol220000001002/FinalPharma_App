@@ -27,7 +27,10 @@ class _AntiAllergyScreenState extends State<AntiAllergyScreen> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$name added to cart!')),
+      SnackBar(
+        content: Text('$name added to cart!'),
+        duration: const Duration(seconds: 1), // 1 second duration
+      ),
     );
   }
 
